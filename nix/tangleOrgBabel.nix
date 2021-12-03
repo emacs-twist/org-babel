@@ -1,6 +1,6 @@
 # Quick-and-dirty re-implementation of org-babel-tangle in Nix.
 { languages
-, processLines
+, processLines ? lines: lines
 }:
 string:
 with builtins;
