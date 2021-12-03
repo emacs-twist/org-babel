@@ -7,9 +7,7 @@ let
   matchOrgHeadlines = headlines: s:
     builtins.any (t: matchOrgHeadline t s) headlines;
 
-  tangleOrgBabel = pkgs.callPackage ./tangleOrgBabel.nix {
-    processLines = processOrgLines;
-  };
+  tangleOrgBabel = import ./tangleOrgBabel.nix;
 in
 {
   inherit matchOrgTag matchOrgHeadline matchOrgHeadlines;
