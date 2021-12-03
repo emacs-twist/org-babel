@@ -1,0 +1,20 @@
+* Archived entry                                                    :ARCHIVE:
+** Child inside an archive entry
+* Good morning
+Good morning!
+* Zao                                                              :optional:
+/Zao/ means good morning in Mandarin Chinese.
+Chinese is optional for non-Chinese people living in countries other than China.
+* Hello
+Hello!
+** Irreguar cases                                                :irregular:
+*** If he/she isn't fine
+Call an ambulance.
+Why did he come to the office in the first place?
+* Get to work
+Do you love your work?
+* Bye
+Bye!
+It was a good day!
+* Zaijian                                                          :optional:
+/Zaijian/ means goodbye in Mandarin Chinese.
