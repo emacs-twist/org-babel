@@ -1,9 +1,7 @@
 # nix-instantiate --eval --strict test/test.nix
 with builtins;
 let
-  pkgs = import (fetchTree (fromJSON (readFile ../flake.lock)).nodes.nixpkgs.locked) {
-    system = builtins.currentSystem;
-  };
+  pkgs = import <nixpkgs> { };
   exclude = import ../nix/excludeOrgSubtreesOnHeadlines.nix;
   matchOrgTag = import ../nix/matchOrgTag.nix;
   matchOrgHeadline = import ../nix/matchOrgHeadline.nix;
