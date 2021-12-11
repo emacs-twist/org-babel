@@ -3,3 +3,83 @@ This is a quick and dirty implementation of =org-babel-tangle= in Nix.
 It provides a function that takes an Org string and returns the contents of source blocks in a particular language.
 
 [[https://github.com/talyz/fromElisp][talyz/fromElisp]] has a built-in Org support, but I created this because I needed more control on which parts to extract. It provides an option for excluding subtrees matching a particular heading pattern. For example, you can omit archived subtrees from the output.
+** Usage
+Import the flake.
+*** Extracting source blocks from an Org file/string
+**** tangleOrgBabel function
+This function takes an Org string and returns its source blocks.
+
+Example:
+
+#+begin_src nix
+  let
+    tangle = lib.tangleOrgBabel {
+      languages = [ "emacs-lisp" ];
+    };
+  in
+  # Return a string
+  tangle (builtins.readFile ./config.org)
+#+end_src
+
+Arguments:
+
+1. An attribute set of options.
+2. An Org input string.
+**** tangleOrgBabelFile function
+Similar to =tangleOrgBabel=, but this function takes a file as an argument and writes the output to a file.
+
+Example:
+
+#+begin_src nix
+  # Write to a file
+  let
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [
+        org-babel.overlay
+      ];
+    };
+  in
+  pkgs.tangleOrgBabelFile "init.el" ./config.org {
+    languages = [ "emacs-lisp" ];
+  }
+#+end_src
+
+Note that this function is provided in the overlay of the flake.
+
+Arguments:
+
+1. A string for the derivation name.
+2. An input file path.
+3. An attribute set of options.
+*** Options
+**** Languages
+This option is required.
+
+Example:
+
+#+begin_src nix
+  {
+    languages = [ "emacs-lisp" "elisp" ];
+  }
+#+end_src
+**** Filtering subtrees
+You can transform the input by specifying =processLines= option.
+It must be a function that takes a list of strings and returns a list of strings.
+
+This library also contains =excludeOrgSubtreesOnHeadlines= function which can be used to exclude subtrees according to a predicate on the headline text, so you can use it in the option.
+
+Example:
+
+#+begin_src nix
+  {
+    # Exclude archived subtrees
+    processLines = excludeOrgSubtreesOnHeadlines (matchOrgTag "ARCHIVE");
+  }
+#+end_src
+
+You can use the following predicates from this library:
+
+- matchOrgTag :: Returns true if the headline matches a tag given as the argument. The argument must be a string.
+- matchOrgHeadline :: Returns true if the headline matches the text given as the argument. The argument must be a string.
+- matchOrgHeadlines :: Returns true if the headline matches any of the texts given as the argument. The argument must be a list of strings.
