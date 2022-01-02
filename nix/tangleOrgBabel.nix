@@ -1,5 +1,5 @@
 # Quick-and-dirty re-implementation of org-babel-tangle in Nix.
-{ languages
+{ languages ? [ "emacs-lisp" "elisp" ]
 , processLines ? lines: lines
 }:
 string:
