@@ -54,8 +54,6 @@ Arguments:
 3. An attribute set of options.
 *** Options
 **** Languages
-This option is required.
-
 Example:
 
 #+begin_src nix
@@ -63,23 +61,24 @@ Example:
     languages = [ "emacs-lisp" "elisp" ];
   }
 #+end_src
+
+Default: =[ "emacs-lisp" "lisp" ]=
 **** Filtering subtrees
 You can transform the input by specifying =processLines= option.
 It must be a function that takes a list of strings and returns a list of strings.
 
-This library also contains =excludeOrgSubtreesOnHeadlines= function which can be used to exclude subtrees according to a predicate on the headline text, so you can use it in the option.
+This library also contains =excludeHeadlines= function which can be used to exclude subtrees according to a predicate on the headline text, so you can use it in the option.
 
 Example:
 
 #+begin_src nix
   {
     # Exclude archived subtrees
-    processLines = excludeOrgSubtreesOnHeadlines (matchOrgTag "ARCHIVE");
+    processLines = excludeHeadlines (matchOrgTag "ARCHIVE");
   }
 #+end_src
 
 You can use the following predicates from this library:
 
-- matchOrgTag :: Returns true if the headline matches a tag given as the argument. The argument must be a string.
-- matchOrgHeadline :: Returns true if the headline matches the text given as the argument. The argument must be a string.
-- matchOrgHeadlines :: Returns true if the headline matches any of the texts given as the argument. The argument must be a list of strings.
+- tag :: Returns true if the headline matches a tag given as the argument. The argument must be a string.
+- headlineText :: Returns true if the headline matches the text given as the argument. The argument must be a string.
