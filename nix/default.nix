@@ -1,6 +1,7 @@
 with builtins;
 let
   excludeOrgSubtreesOnHeadlines = import ./excludeOrgSubtreesOnHeadlines.nix;
+  selectHeadlines = import ./selectHeadlines.nix;
 
   matchOrgTag = import ./matchOrgTag.nix;
   matchOrgHeadline = import ./matchOrgHeadline.nix;
@@ -12,6 +13,7 @@ in
 {
   # Newer concise APIs
   excludeHeadlines = excludeOrgSubtreesOnHeadlines;
+  inherit selectHeadlines;
   tag = matchOrgTag;
   headlineText = matchOrgHeadline;
   allP = predicates: x: builtins.all (p: p x) predicates;

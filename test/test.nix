@@ -3,10 +3,11 @@ with builtins;
 let
   pkgs = import <nixpkgs> { };
   exclude = import ../nix/excludeOrgSubtreesOnHeadlines.nix;
+  select = import ../nix/selectHeadlines.nix;
   matchOrgTag = import ../nix/matchOrgTag.nix;
   matchOrgHeadline = import ../nix/matchOrgHeadline.nix;
   dropUntil = import ../nix/dropUntil.nix;
-  lines = filter isString (split "\n" (readFile ./test.org));
+  lines = filter (s: isString s && s != "") (split "\n" (readFile ./test.org));
 in
 pkgs.lib.runTests {
   testTagPredicate = {
@@ -27,5 +28,15 @@ pkgs.lib.runTests {
   testTagPredicate2 = {
     expr = pkgs.lib.last (exclude (matchOrgTag "optional") lines);
     expected = "It was a good day!";
+  };
+
+  testSelect1 = {
+    expr = pkgs.lib.last (select (matchOrgTag "irregular") lines);
+    expected = "Why did he come to the office in the first place?";
+  };
+
+  testSelect2 = {
+    expr = pkgs.lib.last (select (matchOrgTag "optional") lines);
+    expected = "/Zaijian/ means goodbye in Mandarin Chinese.";
   };
 }
