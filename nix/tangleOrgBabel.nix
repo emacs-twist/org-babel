@@ -12,9 +12,27 @@ let
   blockStartRegexp =
     "[[:space:]]*\#\\+[Bb][Ee][Gg][Ii][Nn]_[Ss][Rr][Cc][[:space:]]+"
     + "(" + (concatStringsSep "|" languages) + ")"
-    + "([[:space:]].*)?";
+    + "(([[:space:]].*)?)";
 
-  isBlockStart = line: match blockStartRegexp line != null;
+  parseParamsString = import ./parseParamsString.nix;
+
+  parseParamsString' = s:
+    if s == null
+    then { }
+    else parseParamsString s;
+
+  checkBlockParams = attrs:
+    foldl' (acc: value: acc && value) true
+      (attrValues
+        (mapAttrs (name: value:
+          if name == ":tangle"
+          then value == "yes"
+          else true
+        ) attrs));
+
+  isBlockStart = line:
+    (match blockStartRegexp line != null)
+    && checkBlockParams (parseParamsString' (elemAt (match blockStartRegexp line) 2));
 
   splitListWith = import ./splitWith.nix;
 

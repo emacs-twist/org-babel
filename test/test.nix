@@ -7,6 +7,7 @@ let
   matchOrgTag = import ../nix/matchOrgTag.nix;
   matchOrgHeadline = import ../nix/matchOrgHeadline.nix;
   dropUntil = import ../nix/dropUntil.nix;
+  tangleOrgBabel = import ../nix/tangleOrgBabel.nix;
   lines = filter (s: isString s && s != "") (split "\n" (readFile ./test.org));
 in
 pkgs.lib.runTests {
@@ -38,5 +39,20 @@ pkgs.lib.runTests {
   testSelect2 = {
     expr = pkgs.lib.last (select (matchOrgTag "optional") lines);
     expected = "/Zaijian/ means goodbye in Mandarin Chinese.";
+  };
+
+  testTangleOrgBabel = {
+    expr = pkgs.lib.pipe (tangleOrgBabel { } (readFile ./testTangle.org)) [
+      (split "\n")
+      (filter isString)
+    ];
+
+    expected = [
+      "Default"
+      "Alternative language name"
+      "Upper case"
+      ":tangle yes"
+      "Extra spaces around params"
+    ];
   };
 }

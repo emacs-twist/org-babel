@@ -1,0 +1,31 @@
+#+begin_src
+No language
+#+end_src
+
+#+begin_src emacs-lisp
+Default
+#+end_src
+
+#+begin_src elisp
+Alternative language name
+#+end_src elisp
+
+#+BEGIN_SRC emacs-lisp
+Upper case
+#+END_SRC
+
+#+BEGIN_SRC shell
+Different language
+#+END_SRC
+
+#+begin_src emacs-lisp :tangle yes
+:tangle yes
+#+end_src
+
+#+begin_src emacs-lisp  :tangle yes 
+Extra spaces around params
+#+end_src
+
+#+begin_src emacs-lisp :tangle no
+:tangle no
+#+end_src
