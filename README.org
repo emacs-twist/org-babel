@@ -1,8 +1,10 @@
 * nix-org-babel
 This is a quick and dirty implementation of =org-babel-tangle= in Nix.
-It provides a function that takes an Org string and returns the contents of source blocks in a particular language.
-
-[[https://github.com/talyz/fromElisp][talyz/fromElisp]] has a built-in Org support, but I created this because I needed more control on which parts to extract. It provides an option for excluding subtrees matching a particular heading pattern. For example, you can omit archived subtrees from the output.
+Given an Org string, it extracts the contents of source blocks of a particular language.
+** Rationale
+[[https://github.com/talyz/fromElisp][talyz/fromElisp]] provides support for Org, and it is also part of [[https://github.com/nix-community/emacs-overlay][emacs-overlay]], which apparently is used by many people for their own configs.
+However, I wanted to experiment with more advanced features such as excluding archived entries, and I wasn't sure if I could mix that with their code base.
+I needed the feature in [[https://github.com/akirak/emacs-twist][my own project]], and I wanted to put it under my control, so I wrote it from scratch.
 ** Usage
 Import the flake.
 *** Extracting source blocks from an Org file/string
