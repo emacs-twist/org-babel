@@ -1,5 +1,5 @@
 * nix-org-babel
-This is a quick and dirty implementation of =org-babel-tangle= in Nix.
+This is an implementation of =org-babel-tangle= in Nix.
 Given an Org string, it extracts the contents of source blocks of a particular language.
 ** Rationale
 [[https://github.com/talyz/fromElisp][talyz/fromElisp]] provides support for Org, and it is also part of [[https://github.com/nix-community/emacs-overlay][emacs-overlay]], which apparently is used by many people for their own configs.
