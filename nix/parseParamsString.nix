@@ -45,6 +45,10 @@ let
 
   go = m: [ (elemAt m 0) ] ++ parse (elemAt m 1);
 
+  # TODO: Handle expressions
+  #
+  # This will be hard, as it requires an elisp parser.
+  # It is probably better to unsupport it.
   parse' = string:
     if string == ""
     then [ ]
