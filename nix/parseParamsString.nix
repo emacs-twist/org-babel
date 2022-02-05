@@ -1,11 +1,36 @@
 with builtins;
 let
+  takeWhile = p: xs:
+    if length xs == 0
+    then [ ]
+    else if p (head xs)
+    then [ (head xs) ] ++ takeWhile p (tail xs)
+    else [ ];
+
+  dropWhile = p: xs:
+    if length xs == 0
+    then [ ]
+    else if p (head xs)
+    then dropWhile p (tail xs)
+    else xs;
+
+  isKeyword = s: stringLength s > 0 && substring 0 1 s == ":";
+
+  notKeyword = s: !(isKeyword s);
+
+  toValue = xs:
+    if length xs == 0
+    then true
+    else if length xs == 1
+    then head xs
+    else xs;
+
   listToAttrs = xs:
     if length xs == 0
     then { }
-    else if length xs == 1
-    then throw "parseParamsString: Found an odd number of items: ${head xs}"
-    else { ${head xs} = elemAt xs 1; } // listToAttrs (tail (tail xs));
+    else {
+      ${head xs} = toValue (takeWhile notKeyword (tail xs));
+    } // listToAttrs (dropWhile notKeyword (tail xs));
 
   stripPat = "[[:space:]]+(.*)";
 
