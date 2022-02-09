@@ -64,7 +64,7 @@ Example:
   }
 #+end_src
 
-Default: =[ "emacs-lisp" "lisp" ]=
+Default: =[ "emacs-lisp" "elisp" ]=
 **** Filtering subtrees
 You can transform the input by specifying =processLines= option.
 It must be a function that takes a list of strings and returns a list of strings.
