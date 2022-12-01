@@ -7,9 +7,9 @@
     in
       {
         inherit lib;
-        overlay = _: pkgs: {
+        overlay = _: prev: {
           tangleOrgBabelFile = name: path: options:
-            pkgs.writeText name
+            prev.writeText name
               (lib.tangleOrgBabel options (builtins.readFile path));
         };
       };
