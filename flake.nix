@@ -7,10 +7,12 @@
     in
       {
         inherit lib;
-        overlay = _: prev: {
-          tangleOrgBabelFile = name: path: options:
-            prev.writeText name
-              (lib.tangleOrgBabel options (builtins.readFile path));
+        overlays = {
+          default = _: prev: {
+            tangleOrgBabelFile = name: path: options:
+              prev.writeText name
+                (lib.tangleOrgBabel options (builtins.readFile path));
+          };
         };
       };
 }
