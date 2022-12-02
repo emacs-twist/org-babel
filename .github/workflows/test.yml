@@ -4,6 +4,7 @@ on:
   push:
     paths:
     - '**/*.nix'
+  workflow_dispatch:
 
 jobs:
   check:
