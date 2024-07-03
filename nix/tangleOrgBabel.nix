@@ -1,6 +1,7 @@
 # Quick-and-dirty re-implementation of org-babel-tangle in Nix.
 { languages ? [ "emacs-lisp" "elisp" ]
 , processLines ? lines: lines
+, tangleArg ? "yes"
 }:
 string:
 with builtins;
@@ -26,7 +27,7 @@ let
       (attrValues
         (mapAttrs (name: value:
           if name == ":tangle"
-          then value == "yes"
+          then value == tangleArg
           else true
         ) attrs));
 
