@@ -38,7 +38,7 @@ Example:
     pkgs = import nixpkgs {
       inherit system;
       overlays = [
-        org-babel.overlay
+        org-babel.overlays.default
       ];
     };
   in
