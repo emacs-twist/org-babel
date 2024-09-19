@@ -29,5 +29,5 @@ jobs:
       - name: Test parameter parsing
         run: nix-instantiate --eval --strict test/testParams.nix
       - name: Check the derivation
-        run: nix flake check --override-input org-babel ..
+        run: nix flake check --no-write-lock-file --override-input org-babel "path:$PWD/.."
         working-directory: test
