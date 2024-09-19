@@ -22,4 +22,4 @@ jobs:
         run: nix-instantiate --eval --strict test/testParams.nix
       - name: Check the derivation
         run: nix flake check --override-input org-babel ..
-        working_directory: test
+        working-directory: test
