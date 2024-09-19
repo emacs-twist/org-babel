@@ -1,6 +1,11 @@
 name: Test
 on:
+  pull_request:
+    paths:
+      - '**/*.nix'
   push:
+    branches:
+      - master
     paths:
       - '**/*.nix'
   workflow_dispatch:
