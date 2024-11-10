@@ -1,7 +1,7 @@
 {
   description = "Nix library for extracting source blocks from Org";
 
-  outputs = { ... }:
+  outputs = _:
     let
       lib = import ./nix;
     in
