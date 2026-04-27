@@ -80,6 +80,11 @@ Example:
   }
 #+end_src
 
+***** Deprecated: =processLines=
+=processLines= is a deprecated alias for =transformLines=.
+Using it will produce a warning at evaluation time.
+If both =transformLines= and =processLines= are provided, =transformLines= takes precedence and =processLines= is ignored.
+
 You can use the following predicates from this library:
 
 - tag :: Returns true if the headline matches a tag given as the argument. The argument must be a string.
