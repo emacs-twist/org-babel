@@ -66,7 +66,7 @@ Example:
 
 Default: =[ "emacs-lisp" "elisp" ]=
 **** Filtering subtrees
-You can transform the input by specifying =processLines= option.
+You can transform the input by specifying =transformLines= option.
 It must be a function that takes a list of strings and returns a list of strings.
 
 This library also contains =excludeHeadlines= function which can be used to exclude subtrees according to a predicate on the headline text, so you can use it in the option.
@@ -76,7 +76,7 @@ Example:
 #+begin_src nix
   {
     # Exclude archived subtrees
-    processLines = excludeHeadlines (matchOrgTag "ARCHIVE");
+    transformLines = excludeHeadlines (matchOrgTag "ARCHIVE");
   }
 #+end_src
 
