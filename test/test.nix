@@ -55,4 +55,39 @@ pkgs.lib.runTests {
       "Extra spaces around params"
     ];
   };
+
+  testTangleOrgBabelTransformLines = {
+    expr = tangleOrgBabel {
+      transformLines = exclude (matchOrgTag "ARCHIVE");
+    } (readFile ./testTangle.org);
+
+    expected = ''
+      Default
+      Alternative language name
+      Upper case
+      :tangle yes
+      Extra spaces around params'';
+  };
+
+  testTangleOrgBabelProcessLinesDeprecated = {
+    expr = tangleOrgBabel {
+      processLines = exclude (matchOrgTag "ARCHIVE");
+    } (readFile ./testTangle.org);
+
+    expected = ''
+      Default
+      Alternative language name
+      Upper case
+      :tangle yes
+      Extra spaces around params'';
+  };
+
+  testTangleOrgBabelTransformLinesTakesPrecedence = {
+    expr = tangleOrgBabel {
+      transformLines = _: [ ];
+      processLines = _: [ "#+begin_src emacs-lisp" "deprecated" "#+end_src" ];
+    } (readFile ./testTangle.org);
+
+    expected = "";
+  };
 }

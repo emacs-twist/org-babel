@@ -4,12 +4,29 @@
     "emacs-lisp"
     "elisp"
   ],
-  processLines ? lines: lines,
+  transformLines ? null,
+  processLines ? null,
   tangleArg ? "yes",
 }:
 string:
 with builtins;
 let
+  warn =
+    msg: value:
+    if builtins ? warn then
+      builtins.warn msg value
+    else
+      trace msg value;
+
+  effectiveTransformLines =
+    if transformLines != null then
+      transformLines
+    else if processLines != null then
+      warn "`processLines` is deprecated; use `transformLines` instead."
+        processLines
+    else
+      lines: lines;
+
   lines = filter isString (split "\n" string);
 
   dropUntil = import ./dropUntil.nix;
@@ -56,4 +73,4 @@ let
       (go (acc ++ [ st2.before ]) st2.after);
 
 in
-concatStringsSep "\n" (concatLists (go [ ] (processLines lines)))
+concatStringsSep "\n" (concatLists (go [ ] (effectiveTransformLines lines)))
