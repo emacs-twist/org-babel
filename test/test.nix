@@ -61,12 +61,13 @@ pkgs.lib.runTests {
       transformLines = exclude (matchOrgTag "ARCHIVE");
     } (readFile ./testTangle.org);
 
-    expected = ''
+    expected = pkgs.lib.removeSuffix "\n" ''
       Default
       Alternative language name
       Upper case
       :tangle yes
-      Extra spaces around params'';
+      Extra spaces around params
+    '';
   };
 
   testTangleOrgBabelProcessLinesDeprecated = {
@@ -74,12 +75,13 @@ pkgs.lib.runTests {
       processLines = exclude (matchOrgTag "ARCHIVE");
     } (readFile ./testTangle.org);
 
-    expected = ''
+    expected = pkgs.lib.removeSuffix "\n" ''
       Default
       Alternative language name
       Upper case
       :tangle yes
-      Extra spaces around params'';
+      Extra spaces around params
+    '';
   };
 
   testTangleOrgBabelTransformLinesTakesPrecedence = {
