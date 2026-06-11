@@ -39,7 +39,7 @@ let
     then head (match stripPat string)
     else string;
 
-  pat1 = "\"([^\"]+)\"(.*)";
+  pat1 = "\"([^\"]*)\"(.*)";
   
   pat2 = "([^\"][^[:space:]]*)(.*)";
 

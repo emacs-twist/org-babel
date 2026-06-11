@@ -39,4 +39,11 @@ pkgs.lib.runTests {
     };
   };
 
+  testEmptyQuotedValue = {
+    expr = parse ":caption \"\"";
+    expected = {
+      ":caption" = "";
+    };
+  };
+
 }
